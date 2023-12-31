@@ -2,6 +2,7 @@
   "name": "@thezzisu/rescuer",
   "version": "0.0.4",
   "type": "module",
+  "packageManager": "yarn@4.0.2",
   "publishConfig": {
     "access": "public"
   },
