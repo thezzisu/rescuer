@@ -417,6 +417,7 @@ __metadata:
     "@rollup/plugin-terser": ^0.4.4
     "@swc/core": ^1.3.101
     jszip: ^3.10.1
+    mime: ^4.0.1
     rollup: ^4.9.2
     serve: ^14.2.1
     typescript: ^5.3.3
@@ -1357,6 +1358,15 @@ __metadata:
   dependencies:
     mime-db: 1.52.0
   checksum: 89a5b7f1def9f3af5dad6496c5ed50191ae4331cc5389d7c521c8ad28d5fdad2d06fd81baf38fed813dc4e46bb55c8145bb0ff406330818c9cf712fb2e9b3836
+  languageName: node
+  linkType: hard
+
+"mime@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "mime@npm:4.0.1"
+  bin:
+    mime: bin/cli.js
+  checksum: a931283bc31570cc9c63fbad24fdf178b4dd545462f93543eff634b24d2b65064585eb347cdf0720316bfa5ca0943115694672f2bc4895f8e2366d280ad481f2
   languageName: node
   linkType: hard
 
