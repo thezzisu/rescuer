@@ -22,7 +22,10 @@
     "dist/sw.min.js.map"
   ],
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
@@ -34,6 +37,7 @@
     "mime": "^4.0.1",
     "rollup": "^4.9.2",
     "serve": "^14.2.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vitepress": "^1.0.0-rc.34"
   }
 }
