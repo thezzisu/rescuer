@@ -1,8 +1,9 @@
-export async function initializeRescue() {
+export async function initializeRescue(workerUrl = '/sw.js') {
   if (!('serviceWorker' in navigator)) throw new Error('Service worker not supported')
   try {
-    const registration = await navigator.serviceWorker.register('/sw.js', {
-      scope: '/'
+    const registration = await navigator.serviceWorker.register(workerUrl, {
+      scope: '/',
+      type: 'module'
     })
     if (registration.installing) {
       console.log('Service worker installing')

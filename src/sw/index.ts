@@ -1,6 +1,8 @@
 import zip from 'jszip'
 
-async function handleNavigationRequest(ev: FetchEvent): Promise<Response> {
+const options = new URL(import.meta.url).searchParams
+
+export async function handleNavigationRequest(ev: FetchEvent): Promise<Response> {
   try {
     const res = await fetch(ev.request)
     return res
@@ -9,7 +11,7 @@ async function handleNavigationRequest(ev: FetchEvent): Promise<Response> {
   }
 }
 
-async function handleApiRequest(ev: FetchEvent): Promise<Response> {
+export async function handleApiRequest(ev: FetchEvent): Promise<Response> {
   const path = new URL(ev.request.url).pathname.replace(/^\/\.rescue\/api\//, '').replace(/\/$/, '')
   try {
     switch (`${ev.request.method}:${path}`) {
@@ -34,7 +36,7 @@ async function handleApiRequest(ev: FetchEvent): Promise<Response> {
   }
 }
 
-async function handleRescueRequest(ev: FetchEvent): Promise<Response> {
+export async function handleRescueRequest(ev: FetchEvent): Promise<Response> {
   try {
     const cache = await caches.open('rescue-v1')
     const res = await cache.match('rescue.zip')
@@ -58,23 +60,25 @@ async function handleRescueRequest(ev: FetchEvent): Promise<Response> {
   }
 }
 
-function initialize(self: ServiceWorkerGlobalScope) {
+export async function handleRequest(ev: FetchEvent): Promise<Response> {
+  if (new URL(ev.request.url).pathname.startsWith('/rescue')) {
+    return handleRescueRequest(ev)
+  } else if (ev.request.mode === 'navigate') {
+    return handleNavigationRequest(ev)
+  } else if (new URL(ev.request.url).pathname.startsWith('/.rescue/api')) {
+    return handleApiRequest(ev)
+  } else {
+    return fetch(ev.request)
+  }
+}
+
+export function initialize(self: ServiceWorkerGlobalScope) {
   self.addEventListener('install', (ev) => {
     self.skipWaiting()
   })
 
   self.addEventListener('fetch', (ev) => {
-    let resp: Promise<Response>
-    if (new URL(ev.request.url).pathname.startsWith('/rescue')) {
-      resp = handleRescueRequest(ev)
-    } else if (ev.request.mode === 'navigate') {
-      resp = handleNavigationRequest(ev)
-    } else if (new URL(ev.request.url).pathname.startsWith('/.rescue/api')) {
-      resp = handleApiRequest(ev)
-    } else {
-      resp = fetch(ev.request)
-    }
-    ev.respondWith(resp)
+    ev.respondWith(handleRequest(ev))
   })
 
   console.log(
@@ -84,4 +88,6 @@ function initialize(self: ServiceWorkerGlobalScope) {
   )
 }
 
-initialize(self as unknown as ServiceWorkerGlobalScope)
+if (!options.get('no-init')) {
+  initialize(self as unknown as ServiceWorkerGlobalScope)
+}
