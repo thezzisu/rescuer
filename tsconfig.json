@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {},
+  "references": [
+    {
+      "path": "./tsconfig.sw.json"
+    },
+    {
+      "path": "./tsconfig.window.json"
+    }
+  ],
+  "include": []
+}

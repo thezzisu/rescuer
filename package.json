@@ -1,0 +1,38 @@
+{
+  "name": "@thezzisu/rescuer",
+  "version": "0.0.0",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": {
+    "name": "thezzisu",
+    "email": "thezzisu@gmail.com",
+    "url": "https://zisu.dev"
+  },
+  "license": "MIT",
+  "files": [
+    "dist/window.js",
+    "dist/window.js.map",
+    "dist/window.min.js",
+    "dist/window.min.js.map",
+    "dist/sw.js",
+    "dist/sw.js.map",
+    "dist/sw.min.js",
+    "dist/sw.min.js.map"
+  ],
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-swc": "^0.3.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@swc/core": "^1.3.101",
+    "jszip": "^3.10.1",
+    "rollup": "^4.9.2",
+    "serve": "^14.2.1",
+    "typescript": "^5.3.3"
+  }
+}
